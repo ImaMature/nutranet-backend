@@ -1,5 +1,6 @@
 package com.nutranet.Model.Entity;
 
+import com.nutranet.Model.Entity.Common.TimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @ToString
 @Table(name = "member")
 @Builder
-public class MemberEntity {
+public class MemberEntity extends TimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int mno;
     @Column (name = "mid")
@@ -20,7 +21,7 @@ public class MemberEntity {
     @Column (name = "mpw")
     private String mpw;
     @Column (name = "memail")
-    private String meamil;
+    private String memail;
     @Column (name = "mnick")
     private String mnick;
     @Column (name = "mname")
