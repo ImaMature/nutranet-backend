@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "member")
+@Table(name = "keyword")
 @Builder
 public class KeywordEntity extends TimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
