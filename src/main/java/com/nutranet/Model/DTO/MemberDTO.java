@@ -18,6 +18,7 @@ public class MemberDTO {
     private String mnick;
     private String mname;
     private String mbirth;
+    private String maddress;
     private String mimg;
     private LocalDateTime m_createDate;
     private LocalDateTime m_updateDate;
