@@ -45,8 +45,8 @@ public class MemberService {
             boolean existed = memberRepos.existsByMidAndMpw(memberDTO.getMid(), memberDTO.getMpw());
             if (existed) {
                 MemberEntity memberEntity = memberRepos.findByMid(memberDTO.getMid());
-                System.out.println(" ===> memberEntity : "+memberEntity);
                 if (memberEntity != null && memberEntity.getRole() != Role.ANONYMOUS) {
+                    System.out.println(" ===> memberEntity : "+memberEntity);
                     //토큰 생성
                     String token = tokenProvider.create(memberDTO.getMid());
 
