@@ -28,6 +28,8 @@ public class MemberEntity extends TimeEntity {
     private String mname;
     @Column (name = "mbirth")
     private String mbirth;
+    @Column(name="maddress")
+    private String maddress;
     @Column (name = "mimg")
     private String mimg;
 

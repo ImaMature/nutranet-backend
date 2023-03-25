@@ -15,8 +15,8 @@ public class ResponseDTO<D> {
         return ResponseDTO.of(true, msg, data);
     }
 
-    public static <D> ResponseDTO<D> ofFail(String msg, D data){
-        return ResponseDTO.of(false, msg, data);
+    public static <D> ResponseDTO<D> ofFail(String msg){
+        return ResponseDTO.of(false, msg, null);
     }
 
 

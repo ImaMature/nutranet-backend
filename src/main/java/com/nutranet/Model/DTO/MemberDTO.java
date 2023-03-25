@@ -31,6 +31,7 @@ public class MemberDTO {
                 .memail(this.memail)
                 .mnick(this.mnick)
                 .mbirth(this.mbirth)
+                .maddress((this.maddress))
                 .mimg(this.mimg)
                 .build();
     }

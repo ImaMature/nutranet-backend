@@ -21,8 +21,7 @@ public class MemberController {
     @PostMapping("/SignUp")
     public ResponseDTO<?> SignUp(@RequestBody MemberDTO memberDTO){
         System.out.println(memberDTO.toString());
-        int rs = memberService.createMember(memberDTO);
-        return null;
+        return memberService.signUp(memberDTO);
     }
 
 }
