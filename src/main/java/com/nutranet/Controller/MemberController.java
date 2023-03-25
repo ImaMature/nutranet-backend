@@ -24,4 +24,9 @@ public class MemberController {
         return memberService.signUp(memberDTO);
     }
 
+    @PostMapping("/Login")
+    public ResponseDTO<?> Login(@RequestBody MemberDTO memberDTO){
+        return memberService.login(memberDTO);
+    }
+
 }

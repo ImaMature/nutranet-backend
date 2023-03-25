@@ -13,7 +13,6 @@ public class MemberService {
     MemberRepository memberRepos;
 
     public ResponseDTO<?> signUp(MemberDTO memberDTO) {
-        System.out.println("memberDto : "+memberDTO.toString() );
         if(memberDTO.getMid() != null && memberDTO.getMpw() != null
                 && memberDTO.getMemail() != null && memberDTO.getMaddress() != null){
             MemberEntity memberEntity = MemberEntity
@@ -32,4 +31,11 @@ public class MemberService {
         return ResponseDTO.ofFail("정확한 내용을 입력해주세요.");
     }
 
+    public ResponseDTO<?> login(MemberDTO memberDTO) {
+        System.out.println("memberDto : "+memberDTO.toString() );
+        if(memberDTO.getMid() == null || memberDTO.getMpw() == null){
+            return ResponseDTO.ofFail("아이디나 비밀번호를 정확히 입력해주세요.");
+        }
+        return ResponseDTO.ofSuccess("로그인 완료", null);
+    }
 }
