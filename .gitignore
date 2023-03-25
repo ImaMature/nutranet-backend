@@ -171,7 +171,6 @@ thumb
 sketch
 
 ### Gradle ###
-.gradle
 **/build/
 !src/**/build/
 
