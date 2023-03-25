@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class IndexController {
 
-
-
     @GetMapping ("/api/hello")
     public String test(){
         return "hi, hello!!";

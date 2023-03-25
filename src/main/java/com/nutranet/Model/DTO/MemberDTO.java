@@ -1,8 +1,10 @@
 package com.nutranet.Model.DTO;
 
 import com.nutranet.Model.Entity.MemberEntity;
+import com.nutranet.Model.Role.Role;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,7 +14,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDTO {
+    private int mno;
+    @NotBlank
     private String mid;
+    @NotBlank
     private String mpw;
     private String memail;
     private String mnick;
@@ -20,19 +25,10 @@ public class MemberDTO {
     private String mbirth;
     private String maddress;
     private String mimg;
+    private Role role;
+    private String token;
     private LocalDateTime m_createDate;
     private LocalDateTime m_updateDate;
 
-    public MemberEntity memberEntity(){
-        return MemberEntity.builder()
-                .mid(this.mid)
-                .mpw(this.mpw)
-                .mname(this.mname)
-                .memail(this.memail)
-                .mnick(this.mnick)
-                .mbirth(this.mbirth)
-                .maddress((this.maddress))
-                .mimg(this.mimg)
-                .build();
-    }
+
 }

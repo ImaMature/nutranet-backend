@@ -1,6 +1,7 @@
 package com.nutranet.Model.Entity;
 
 import com.nutranet.Model.Entity.Common.TimeEntity;
+import com.nutranet.Model.Role.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,5 +33,13 @@ public class MemberEntity extends TimeEntity {
     private String maddress;
     @Column (name = "mimg")
     private String mimg;
+    @Column (name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    //role key를 반환하는 메소드 //나중에 시큐리티 사용 시 키 보관
+    public String getRoleKey(){
+        return this.role.getKey();
+    }
 
 }
