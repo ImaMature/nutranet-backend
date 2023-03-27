@@ -27,6 +27,7 @@ public class MemberDTO {
     private String mimg;
     private Role role;
     private String token;
+    private Long exprTime;
     private LocalDateTime m_createDate;
     private LocalDateTime m_updateDate;
 

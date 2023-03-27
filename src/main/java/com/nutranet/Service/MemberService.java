@@ -49,7 +49,7 @@ public class MemberService {
                     System.out.println(" ===> memberEntity : "+memberEntity);
                     //토큰 생성
                     String token = tokenProvider.create(memberDTO.getMid());
-
+                    Long exprTime = 86400000000L; //24Hour = 1Day
                     MemberDTO memberDTO2 = MemberDTO
                             .builder()
                             .mno(memberEntity.getMno())
@@ -63,6 +63,7 @@ public class MemberService {
                             .role(memberEntity.getRole())
                             .m_createDate(memberEntity.getCreateDate())
                             .token(token)
+                            .exprTime(exprTime)
                             .build();
                     return ResponseDTO.ofSuccess("로그인 성공", memberDTO2);
                 }
