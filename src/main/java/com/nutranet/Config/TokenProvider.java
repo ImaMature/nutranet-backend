@@ -23,29 +23,24 @@ public class TokenProvider {
     private String SECURITY_KEY;
     // 위 키를 바탕으로 데이터 암호화, 복호화
 
-    // 객체 초기화, secretKey를 Base64로 인코딩한다.
-    @PostConstruct
-    protected void init() {
-        SECURITY_KEY = Base64.getEncoder().encodeToString(SECURITY_KEY.getBytes());
-    }
+
 
     // JWT 생성하는 메소드
     public String create (String mid){
-        // 만료 시간                                             // 현재시간 + 1일
-
-        //비밀 키로 만들기
         //String -> byte[]
         byte[] decodedKeyBytes = Base64.getDecoder().decode(SECURITY_KEY);
-        //byte[] -> Key
+        //byte[] -> Key (HMAC SHA necessary!!)
         Key privateKey = Keys.hmacShaKeyFor(decodedKeyBytes);
+
         try {
+            // Key -> String
             String encodedKey = Base64.getEncoder().encodeToString(privateKey.getEncoded());
             System.out.println("@@비밀 키 : "+encodedKey);
             System.out.println("@@원본 String 키 : "+ SECURITY_KEY);
 
+            // 만료 시간                                             // 현재시간 + 1일
             Date exprTime = (Date) Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
 
-            //System.out.println("create 넘어옴? key는 ? ==> "+ encodedKey);
             // JWT 생성
             return Jwts.builder()
                     // 암호화에 사용될 알고리즘, 키
