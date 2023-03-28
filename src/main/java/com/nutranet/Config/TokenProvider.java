@@ -7,7 +7,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -17,13 +16,9 @@ import java.util.Date;
 @Service
 public class TokenProvider {
 
-    // JWT 생성 및 검증을 위한 키
-    //application.properties로부터 가져옴
+    // JWT 생성 및 검증을 위한 키, 이것을 바탕으로 데이터 암호화, 복호화
     @Value("${jwt.token.key}")
     private String SECURITY_KEY;
-    // 위 키를 바탕으로 데이터 암호화, 복호화
-
-
 
     // JWT 생성하는 메소드
     public String create (String mid){
@@ -34,9 +29,9 @@ public class TokenProvider {
 
         try {
             // Key -> String
-            String encodedKey = Base64.getEncoder().encodeToString(privateKey.getEncoded());
-            System.out.println("@@비밀 키 : "+encodedKey);
-            System.out.println("@@원본 String 키 : "+ SECURITY_KEY);
+            //String encodedKey = Base64.getEncoder().encodeToString(privateKey.getEncoded());
+            //System.out.println("@@비밀 키 : "+encodedKey);
+            //System.out.println("@@원본 String 키 : "+ SECURITY_KEY);
 
             // 만료 시간                                             // 현재시간 + 1일
             Date exprTime = (Date) Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
@@ -56,7 +51,6 @@ public class TokenProvider {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
 
