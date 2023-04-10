@@ -30,6 +30,4 @@ public class MemberDTO {
     private Long exprTime;
     private LocalDateTime m_createDate;
     private LocalDateTime m_updateDate;
-
-
 }
