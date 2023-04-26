@@ -1,5 +1,6 @@
 package com.nutranet.Controller;
 
+import com.nutranet.Model.DTO.FoodDataDTO;
 import com.nutranet.Service.FoodDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ public class IndexController {
 
     @GetMapping ({"","/"})
     public ResponseEntity<?> Login(){
-        if(foodDataService.getSavedData().isEmpty()){
+        if(foodDataService.getSavedData()){
             foodDataService.saveNewData();
-        };
-        return new ResponseEntity<String>("ok", HttpStatus.OK);
+        }
+        FoodDataDTO foodDataDTO = foodDataService.findRecentDatas();
+
+        return new ResponseEntity<FoodDataDTO>(foodDataDTO, HttpStatus.OK);
     }
 
 

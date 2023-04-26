@@ -1,6 +1,7 @@
 package com.nutranet.Service;
 
 import com.google.gson.*;
+import com.nutranet.Model.DTO.Common.ResponseDTO;
 import com.nutranet.Model.DTO.FoodDataDTO;
 import com.nutranet.Model.Entity.FoodDataEntity;
 import com.nutranet.Model.Repository.FoodDataRepository;
@@ -13,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FoodDataService<T> {
@@ -22,9 +24,9 @@ public class FoodDataService<T> {
     @Value("${API_KEY}")
     private String API_KEY;
 
-    public List getSavedData() {
+    public boolean getSavedData() {
         List<FoodDataEntity> rs = foodDataRepos.findAll();
-        return rs;
+        return !rs.isEmpty();
     }
 
     public void saveNewData() {
@@ -76,16 +78,16 @@ public class FoodDataService<T> {
                         for(int j = 0; j<jsonArray.size(); j++){
                             System.out.println("==> : "+j+"번째 데이터 엔티티로 만들기.");
                             FoodDataEntity foodDataEntity = FoodDataEntity.builder()
-                                    .PRDLST_NM(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("PRDLST_NM")))
-                                    .PRMS_DT(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("PRMS_DT")))
-                                    .DISPOS(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("DISPOS")))
-                                    .BSSH_NM(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("BSSH_NM")))
-                                    .PRIMARY_FNCLTY(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("PRIMARY_FNCLTY")))
-                                    .NTK_MTHD(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("NTK_MTHD")))
-                                    .CSTDY_MTHD(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("CSTDY_MTHD")))
-                                    .IFTKN_ATNT_MATR_CN(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("IFTKN_ATNT_MATR_CN")))
-                                    .STDR_STND(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("STDR_STND")))
-                                    .GU_PRDLST_MNF_MANAGE_NO(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("GU_PRDLST_MNF_MANAGE_NO")))
+                                    .PRDLST_NM(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("PRDLST_NM")).replaceAll("\"", ""))
+                                    .PRMS_DT(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("PRMS_DT")).replaceAll("\"", ""))
+                                    .DISPOS(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("DISPOS")).replaceAll("\"", ""))
+                                    .BSSH_NM(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("BSSH_NM")).replaceAll("\"", ""))
+                                    .PRIMARY_FNCLTY(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("PRIMARY_FNCLTY")).replaceAll("\"", ""))
+                                    .NTK_MTHD(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("NTK_MTHD")).replaceAll("\"", ""))
+                                    .CSTDY_MTHD(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("CSTDY_MTHD")).replaceAll("\"", ""))
+                                    .IFTKN_ATNT_MATR_CN(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("IFTKN_ATNT_MATR_CN")).replaceAll("\"", ""))
+                                    .STDR_STND(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("STDR_STND")).replaceAll("\"", ""))
+                                    .GU_PRDLST_MNF_MANAGE_NO(String.valueOf(jsonArray.get(j).getAsJsonObject().get("item").getAsJsonObject().get("GU_PRDLST_MNF_MANAGE_NO")).replaceAll("\"", ""))
                                     .build();
                             foodDataRepos.save(foodDataEntity);
                         }
@@ -109,5 +111,14 @@ public class FoodDataService<T> {
             e.printStackTrace();
         }
 
+    }
+
+    public FoodDataDTO findRecentDatas() {
+        Optional<FoodDataEntity> foodDataEntity = foodDataRepos.find10Items();
+        return FoodDataDTO.builder()
+                .Nno(foodDataEntity.orElseThrow().getNno())
+                .PRDLST_NM(foodDataEntity.orElseThrow().getPRDLST_NM())
+                .BSSH_NM(foodDataEntity.orElseThrow().getBSSH_NM())
+                .build();
     }
 }
